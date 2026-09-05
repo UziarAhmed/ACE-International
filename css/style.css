@@ -1590,7 +1590,7 @@ section[id] {
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-  cursor: pointer;
+  cursor: default;
   perspective: 600px;
 }
 

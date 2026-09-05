@@ -66,8 +66,6 @@ export function initClientSwap() {
       const cell = document.createElement('div');
       cell.className = 'logo-swap-cell';
       cell.setAttribute('data-cell-index', i);
-      cell.setAttribute('tabindex', '0');
-      cell.setAttribute('role', 'button');
       cell.title = `${item.name} - ${item.desc}`;
 
       const inner = document.createElement('div');
@@ -87,20 +85,6 @@ export function initClientSwap() {
       inner.appendChild(img);
       inner.appendChild(tooltip);
       cell.appendChild(inner);
-
-      // On click or Enter key, open direct WhatsApp inquiry for this brand/OEM
-      const handleInquiry = () => {
-        const query = encodeURIComponent(`Parts & Tooling compatible with ${item.name}`);
-        window.open(`https://wa.me/919930051896?text=Hello%20ACE%20INTERNATIONAL,%20I%20would%20like%20to%20inquire%20about%20${query}.`, '_blank', 'noopener,noreferrer');
-      };
-
-      cell.addEventListener('click', handleInquiry);
-      cell.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          handleInquiry();
-        }
-      });
 
       logoCloudGrid.appendChild(cell);
     }
