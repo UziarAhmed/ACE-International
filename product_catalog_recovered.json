@@ -1,0 +1,421 @@
+  // ==========================================================================
+  // 3. PRODUCTS WE OFFER - CATALOG DIRECTORY ENGINE
+  // ==========================================================================
+  const categoryModal = document.getElementById('categoryModal');
+
+  // Authentic Products Dataset extracted from official ACE INTERNATIONAL Catalogues
+  const PRODUCT_CATALOG = [
+    {
+      id: 'ace-iv-rotary-tablet-press',
+      name: 'ACE-IV Square cGMP Double Rotary Tablet Press',
+      category: 'rotary-press',
+      tag: 'Rotary Compression',
+      image: 'assets/images/products/ace-iv-rotary-tablet-press.jpg',
+      desc: 'Double-sided high speed rotary compression with outputs up to 2,16,000 tabs/hr. Accommodates 27 Stn D, 27 Stn B, 35 Stn B & 45 Stn BB tooling.',
+      oems: ['Cadmach', 'Fette Compacting', 'Korsch AG', 'GEA Courtoy'],
+      tooling: ['D Tooling', 'B Tooling', 'BB Tooling'],
+      modalKey: 'tablet-press'
+    },
+    {
+      id: 'ace-iii-single-rotary-press',
+      name: 'ACE-III Single Rotary Tablet Press Machine',
+      category: 'rotary-press',
+      tag: 'Single Rotary Press',
+      image: 'assets/images/products/ace-iii-single-rotary-press.jpg',
+      desc: 'Robust single-sided rotary compression machine (16, 20 & 23 stations). Central lubrication, overload pressure release, and pre-compression GMP design.',
+      oems: ['Cadmach', 'Korsch AG', 'PTK GB'],
+      tooling: ['D Tooling', 'B Tooling'],
+      modalKey: 'tablet-press'
+    },
+    {
+      id: 'automatic-capsule-filler',
+      name: 'ACE AF-40 Automatic Capsule Filling Machine',
+      category: 'capsule-filling',
+      tag: 'Encapsulation',
+      image: 'assets/images/products/automatic-capsule-filler.jpg',
+      desc: 'Multi-position tamping pin dosing system for powder and pellets. Handles capsule sizes #000 to #5 with rapid format changeovers and VFD speed control.',
+      oems: ['Bosch / Syntegon', 'IMA SpA', 'ACG / Pam-Pac'],
+      tooling: ['Multi-Tip Tooling'],
+      modalKey: 'capsule-filling'
+    },
+    {
+      id: 'automatic-liquid-capsule-filler',
+      name: 'Automatic Liquid Capsule Filling Machine',
+      category: 'capsule-filling',
+      tag: 'Liquid Encapsulation',
+      image: 'assets/images/products/automatic-liquid-capsule-filler.jpg',
+      desc: 'Precision volumetric dosing for pharmaceutical solutions, suspensions, and oily liquids into hard gelatin and vegetarian HPMC capsules.',
+      oems: ['Bosch / Syntegon', 'IMA SpA', 'ACG / Pam-Pac'],
+      tooling: [],
+      modalKey: 'capsule-filling'
+    },
+    {
+      id: 'liquid-capsule-band-sealer',
+      name: 'Automatic Liquid Capsule Band Sealing Machine',
+      category: 'capsule-filling',
+      tag: 'Capsule Band Sealer',
+      image: 'assets/images/products/liquid-capsule-band-sealer.jpg',
+      desc: 'Hermetic gelatin/HPMC band sealing preventing leakage and moisture ingress. Dual-layer precise temperature-controlled band application.',
+      oems: ['Bosch / Syntegon', 'IMA SpA'],
+      tooling: [],
+      modalKey: 'capsule-filling'
+    },
+    {
+      id: 'high-shear-rmg-granulator',
+      name: 'High Shear Rapid Mixer Granulator (HSMG / RMG)',
+      category: 'granulation',
+      tag: 'High Shear RMG',
+      image: 'assets/images/products/rapid-mixer-granulator-rmg.jpg',
+      desc: 'Sanitary wet granulation (10L to 1200L) featuring dual-speed chopper, 4-arm mixing impeller, air-purged mechanical seals, and AISI 316 contact parts.',
+      oems: ['Cadmach', 'GEA Courtoy'],
+      tooling: [],
+      modalKey: 'rmg'
+    },
+    {
+      id: 'fluid-bed-dryer-fbd',
+      name: 'Fluid Bed Dryer & Processor (FBD)',
+      category: 'drying',
+      tag: 'Drying Tower',
+      image: 'assets/images/products/fluid-bed-dryer-fbd.jpg',
+      desc: 'Uniform moisture reduction from 30 kg to 500 kg batch sizes. Equipped with Dutch weave stainless steel sieves, explosion relief, and pneumatic seals.',
+      oems: ['GEA Courtoy', 'Cadmach'],
+      tooling: [],
+      modalKey: 'fbd'
+    },
+    {
+      id: 'multi-tip-punch-die-tooling',
+      name: 'Multi-Tip Punch & Segment Die Tooling Sets',
+      category: 'tooling',
+      tag: 'Compression Tooling',
+      image: 'assets/images/products/multi-tip-punch-die-tooling.jpg',
+      desc: 'Multiplies press output by 2x to 5x without increasing machine speed. High impact shock-resistant S7 and 440C steels hardened to 58–60 HRC.',
+      oems: ['Cadmach', 'Fette Compacting', 'Korsch AG', 'GEA Courtoy', 'Sejong Pharmatech', 'Romaco'],
+      tooling: ['Multi-Tip Tooling', 'B Tooling', 'BB Tooling'],
+      modalKey: 'tooling'
+    },
+    {
+      id: 'pvd-coated-tablet-tooling',
+      name: 'Special PVD Anti-Stick & Anti-Abrasive Punches',
+      category: 'tooling',
+      tag: 'PVD Coated Tooling',
+      image: 'assets/images/products/pvd-coated-tablet-tooling.jpg',
+      desc: 'Eliminates tablet sticking and picking with nano-structured TiN, CRX+, SPN+, and DLC (Diamond-Like Carbon) coatings. Sub-micron surface finish.',
+      oems: ['Fette Compacting', 'Korsch AG', 'IMA SpA', 'Cadmach', 'Sejong Pharmatech'],
+      tooling: ['PVD Coated', 'D Tooling', 'B Tooling'],
+      modalKey: 'tooling'
+    },
+    {
+      id: 'rotary-blister-packaging-machine',
+      name: 'Rotary Blister Packing & De-Blistering Unit',
+      category: 'packaging',
+      tag: 'Blister Packaging',
+      image: 'assets/images/products/rotary-blister-packing-machine.jpg',
+      desc: 'Continuous rotary blister sealing for Alu-Alu and PVC-Alu webs. Includes semi-automatic de-blistering recovery and precision forming plates.',
+      oems: ['Romaco', 'Bosch / Syntegon', 'ACG / Pam-Pac'],
+      tooling: [],
+      modalKey: 'blister'
+    },
+    {
+      id: 'ace-50-multi-mill',
+      name: 'ACE-50 High Speed Multi Mill & Sifter',
+      category: 'milling',
+      tag: 'Milling & Sifting',
+      image: 'assets/images/products/ace-50-multi-mill.jpg',
+      desc: 'High-speed pulverizing and size reduction (1 to 50 kg/hr at 2800 RPM) with 12 knife/impact blades and interchangeable perforated screens.',
+      oems: ['Cadmach'],
+      tooling: [],
+      modalKey: 'vibro'
+    },
+    {
+      id: 'precision-machine-spares-cams',
+      name: 'Precision Turrets, Feeder Cams & Change Parts',
+      category: 'spare-parts',
+      tag: 'Machine Spares',
+      image: 'assets/images/products/precision-machine-spares-cams.jpg',
+      desc: 'OEM-compatible replacement turrets, upper/lower cam tracks, pressure rollers, dosing discs, and blister change parts machined on 5-axis CNC.',
+      oems: ['Cadmach', 'Bosch / Syntegon', 'Fette Compacting', 'Korsch AG', 'GEA Courtoy', 'IMA SpA', 'Sejong Pharmatech', 'Romaco', 'ACG / Pam-Pac', 'PTK GB'],
+      tooling: ['D Tooling', 'B Tooling'],
+      modalKey: 'spare-parts'
+    }
+  ];
+
+  // DOM Elements
+  const productCatalogGrid = document.getElementById('productCatalogGrid');
+  const catalogCountEl = document.getElementById('catalogCount');
+  const catalogEmptyState = document.getElementById('catalogEmptyState');
+  const catalogSearchInput = document.getElementById('catalogSearchInput');
+  const catalogSearchClear = document.getElementById('catalogSearchClear');
+  const viewGridBtn = document.getElementById('viewGridBtn');
+  const viewListBtn = document.getElementById('viewListBtn');
+  const mobileFilterToggleBtn = document.getElementById('mobileFilterToggleBtn');
+  const mobileFilterCount = document.getElementById('mobileFilterCount');
+  const catalogSidebar = document.getElementById('catalogSidebar');
+  const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+  const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+  const sidebarActiveFilters = document.getElementById('sidebarActiveFilters');
+  const activeChipsList = document.getElementById('activeChipsList');
+  const clearAllFiltersBtn = document.getElementById('clearAllFiltersBtn');
+  const resetFiltersSidebarBtn = document.getElementById('resetFiltersSidebarBtn');
+  const emptyStateResetBtn = document.getElementById('emptyStateResetBtn');
+
+  // Filter State
+  const activeFilters = {
+    category: new Set(),
+    oem: new Set(),
+    tooling: new Set(),
+    search: ''
+  };
+
+  function renderProductCatalog() {
+    if (!productCatalogGrid) return;
+
+    // Filter dataset
+    const filtered = PRODUCT_CATALOG.filter(item => {
+      // Category filter
+      if (activeFilters.category.size > 0 && !activeFilters.category.has(item.category)) {
+        return false;
+      }
+      // OEM filter
+      if (activeFilters.oem.size > 0) {
+        const matchesOEM = Array.from(activeFilters.oem).some(oem => item.oems && item.oems.includes(oem));
+        if (!matchesOEM) return false;
+      }
+      // Tooling filter
+      if (activeFilters.tooling.size > 0) {
+        const matchesTooling = Array.from(activeFilters.tooling).some(t => item.tooling && item.tooling.includes(t));
+        if (!matchesTooling) return false;
+      }
+      // Search filter
+      if (activeFilters.search) {
+        const q = activeFilters.search.toLowerCase();
+        const inName = item.name.toLowerCase().includes(q);
+        const inDesc = item.desc.toLowerCase().includes(q);
+        const inTag = item.tag.toLowerCase().includes(q);
+        const inOems = item.oems && item.oems.some(o => o.toLowerCase().includes(q));
+        if (!inName && !inDesc && !inTag && !inOems) return false;
+      }
+      return true;
+    });
+
+    // Update Counter
+    if (catalogCountEl) {
+      catalogCountEl.textContent = `Showing ${filtered.length} Product${filtered.length === 1 ? '' : 's'}`;
+    }
+
+    // Toggle Empty State
+    if (filtered.length === 0) {
+      productCatalogGrid.style.display = 'none';
+      if (catalogEmptyState) catalogEmptyState.style.display = 'block';
+    } else {
+      productCatalogGrid.style.display = '';
+      if (catalogEmptyState) catalogEmptyState.style.display = 'none';
+
+      // Generate HTML matching reference cards
+      productCatalogGrid.innerHTML = filtered.map(item => `
+        <div class="product-card" data-product-id="${item.id}">
+          <div class="product-card-media">
+            <img src="${item.image}" alt="${item.name}" class="product-card-img" loading="lazy">
+          </div>
+          <div class="product-card-body">
+            <span class="product-tag-pill">${item.tag}</span>
+            <h3 class="product-card-title">${item.name}</h3>
+            <p class="product-card-desc">${item.desc}</p>
+            <div class="product-card-footer">
+              <button type="button" class="product-card-link" data-modal-key="${item.modalKey}" aria-label="View specifications for ${item.name}">
+                View &rarr;
+              </button>
+              <a href="#rfq-section" class="product-quote-link" data-prefill="${item.name}" aria-label="Request quote for ${item.name}">
+                Request Quote
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Attach Card Click Events
+      productCatalogGrid.querySelectorAll('.product-card-link').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const key = btn.getAttribute('data-modal-key');
+          const data = CATEGORY_DETAILS[key];
+          if (data) showCategoryModal(data, key);
+        });
+      });
+
+      productCatalogGrid.querySelectorAll('.product-quote-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const prefill = link.getAttribute('data-prefill');
+          if (prefill) populateAndScrollToRFQ(prefill);
+        });
+      });
+    }
+
+    // Update Active Filter Chips & Badge
+    renderActiveFilterChips();
+  }
+
+  function renderActiveFilterChips() {
+    const totalFilters = activeFilters.category.size + activeFilters.oem.size + activeFilters.tooling.size;
+
+    // Mobile badge
+    if (mobileFilterCount) {
+      if (totalFilters > 0) {
+        mobileFilterCount.textContent = totalFilters;
+        mobileFilterCount.style.display = 'inline-block';
+      } else {
+        mobileFilterCount.style.display = 'none';
+      }
+    }
+
+    // Sidebar active chips block
+    if (!sidebarActiveFilters || !activeChipsList) return;
+
+    if (totalFilters === 0) {
+      sidebarActiveFilters.style.display = 'none';
+      activeChipsList.innerHTML = '';
+      return;
+    }
+
+    sidebarActiveFilters.style.display = 'block';
+    const chips = [];
+
+    activeFilters.category.forEach(cat => {
+      // Find human label
+      const input = document.querySelector(`.filter-checkbox[name="category"][value="${cat}"]`);
+      const label = input ? input.closest('label').querySelector('.filter-label-text').textContent.trim() : cat;
+      chips.push({ type: 'category', value: cat, label });
+    });
+
+    activeFilters.oem.forEach(oem => {
+      chips.push({ type: 'oem', value: oem, label: oem });
+    });
+
+    activeFilters.tooling.forEach(t => {
+      chips.push({ type: 'tooling', value: t, label: t });
+    });
+
+    activeChipsList.innerHTML = chips.map(chip => `
+      <span class="active-filter-chip">
+        <span>${chip.label}</span>
+        <button type="button" class="chip-remove-btn" data-type="${chip.type}" data-val="${chip.value}" aria-label="Remove ${chip.label} filter">&times;</button>
+      </span>
+    `).join('');
+
+    activeChipsList.querySelectorAll('.chip-remove-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.getAttribute('data-type');
+        const val = btn.getAttribute('data-val');
+        if (type && val && activeFilters[type]) {
+          activeFilters[type].delete(val);
+          // Uncheck corresponding checkbox
+          const cb = document.querySelector(`.filter-checkbox[name="${type}"][value="${val}"]`);
+          if (cb) cb.checked = false;
+          renderProductCatalog();
+        }
+      });
+    });
+  }
+
+  function resetAllFilters() {
+    activeFilters.category.clear();
+    activeFilters.oem.clear();
+    activeFilters.tooling.clear();
+    activeFilters.search = '';
+
+    document.querySelectorAll('.filter-checkbox').forEach(cb => {
+      cb.checked = false;
+    });
+
+    if (catalogSearchInput) {
+      catalogSearchInput.value = '';
+    }
+    if (catalogSearchClear) {
+      catalogSearchClear.style.display = 'none';
+    }
+
+    renderProductCatalog();
+  }
+
+  // Checkbox Change Event Listeners
+  document.querySelectorAll('.filter-checkbox').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const type = cb.getAttribute('name');
+      const val = cb.getAttribute('value');
+      if (activeFilters[type]) {
+        if (cb.checked) {
+          activeFilters[type].add(val);
+        } else {
+          activeFilters[type].delete(val);
+        }
+        renderProductCatalog();
+      }
+    });
+  });
+
+  // Search input with live debouncing
+  if (catalogSearchInput) {
+    let searchDebounce;
+    catalogSearchInput.addEventListener('input', () => {
+      clearTimeout(searchDebounce);
+      const query = catalogSearchInput.value.trim();
+      if (catalogSearchClear) {
+        catalogSearchClear.style.display = query ? 'block' : 'none';
+      }
+      searchDebounce = setTimeout(() => {
+        activeFilters.search = query;
+        renderProductCatalog();
+      }, 150);
+    });
+
+    if (catalogSearchClear) {
+      catalogSearchClear.addEventListener('click', () => {
+        catalogSearchInput.value = '';
+        catalogSearchClear.style.display = 'none';
+        activeFilters.search = '';
+        renderProductCatalog();
+      });
+    }
+  }
+
+  // Clear All Filter Buttons
+  if (clearAllFiltersBtn) clearAllFiltersBtn.addEventListener('click', resetAllFilters);
+  if (resetFiltersSidebarBtn) resetFiltersSidebarBtn.addEventListener('click', resetAllFilters);
+  if (emptyStateResetBtn) emptyStateResetBtn.addEventListener('click', resetAllFilters);
+
+  // View Switcher (Grid vs List)
+  if (viewGridBtn && viewListBtn && productCatalogGrid) {
+    viewGridBtn.addEventListener('click', () => {
+      viewGridBtn.classList.add('active');
+      viewListBtn.classList.remove('active');
+      productCatalogGrid.classList.remove('view-list');
+      productCatalogGrid.classList.add('view-grid');
+    });
+
+    viewListBtn.addEventListener('click', () => {
+      viewListBtn.classList.add('active');
+      viewGridBtn.classList.remove('active');
+      productCatalogGrid.classList.remove('view-grid');
+      productCatalogGrid.classList.add('view-list');
+    });
+  }
+
+  // Mobile Filter Drawer Toggle
+  if (mobileFilterToggleBtn && catalogSidebar && sidebarBackdrop) {
+    mobileFilterToggleBtn.addEventListener('click', () => {
+      catalogSidebar.classList.add('active');
+      sidebarBackdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeMobileSidebar = () => {
+      catalogSidebar.classList.remove('active');
+      sidebarBackdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeMobileSidebar);
+    sidebarBackdrop.addEventListener('click', closeMobileSidebar);
+  }
+
+  // Initialize Product Catalog on Page Load
+  renderProductCatalog();

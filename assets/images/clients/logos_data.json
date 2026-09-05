@@ -1,0 +1,290 @@
+[
+  {
+    "name": "Aarti Drugs Ltd",
+    "category": "pharma",
+    "desc": "Active Pharmaceutical Ingredients (API)",
+    "src": "assets/images/clients/client-aarti-drugs.png"
+  },
+  {
+    "name": "Aarti Industries Limited",
+    "category": "pharma",
+    "desc": "Global Specialty Chemical & Pharma",
+    "src": "assets/images/clients/client-aarti-industries.png"
+  },
+  {
+    "name": "Aastrid Life Sciences",
+    "category": "pharma",
+    "desc": "Custom Synthesis & Fine Chemicals",
+    "src": "assets/images/clients/client-aastrid.png"
+  },
+  {
+    "name": "Adani Wilmar Ltd",
+    "category": "pharma",
+    "desc": "Industrial Processing & Formulations",
+    "src": "assets/images/clients/client-adani-wilmar.png"
+  },
+  {
+    "name": "Aditya Birla Hindalco",
+    "category": "pharma",
+    "desc": "Diversified Multinational Conglomerate",
+    "src": "assets/images/clients/client-aditya-birla.png"
+  },
+  {
+    "name": "Alkem Laboratories",
+    "category": "pharma",
+    "desc": "Leading Indian Formulations & Generics",
+    "src": "assets/images/clients/client-alkem.png"
+  },
+  {
+    "name": "Aplab Limited",
+    "category": "pharma",
+    "desc": "Precision Testing & Power Control",
+    "src": "assets/images/clients/client-aplab.png"
+  },
+  {
+    "name": "Apple Field International",
+    "category": "pharma",
+    "desc": "International Healthcare & Export",
+    "src": "assets/images/clients/client-apple-field.png"
+  },
+  {
+    "name": "Calyx Pharma",
+    "category": "pharma",
+    "desc": "Bulk Active Ingredients & Formulations",
+    "src": "assets/images/clients/client-calyx-pharma.png"
+  },
+  {
+    "name": "CCIPL Pharma",
+    "category": "pharma",
+    "desc": "Coastal Chemicals & Active Ingredients",
+    "src": "assets/images/clients/client-ccipl.png"
+  },
+  {
+    "name": "Doshion Water & Resource",
+    "category": "pharma",
+    "desc": "Pharmaceutical Water & Process Systems",
+    "src": "assets/images/clients/client-doshion.png"
+  },
+  {
+    "name": "Eurotek Environmental",
+    "category": "pharma",
+    "desc": "Water Treatment & Sanitary Systems",
+    "src": "assets/images/clients/client-eurotek.png"
+  },
+  {
+    "name": "Fresenius Kabi",
+    "category": "pharma",
+    "desc": "Global Healthcare & Infusion Therapy",
+    "src": "assets/images/clients/client-fresenius-kabi.png"
+  },
+  {
+    "name": "Helios Pharmaceuticals",
+    "category": "pharma",
+    "desc": "Manufacturing Excellence Since 1985",
+    "src": "assets/images/clients/client-helios.png"
+  },
+  {
+    "name": "Jaysynth Group",
+    "category": "pharma",
+    "desc": "Specialty Pigments & Chemical Formulations",
+    "src": "assets/images/clients/client-jaysynth.png"
+  },
+  {
+    "name": "June Enterprises",
+    "category": "pharma",
+    "desc": "Pharmaceutical Cleanroom & Tooling",
+    "src": "assets/images/clients/client-june.png"
+  },
+  {
+    "name": "Kitten Enterprises",
+    "category": "pharma",
+    "desc": "ISO 9001 Certified Cleanroom Solutions",
+    "src": "assets/images/clients/client-kitten.png"
+  },
+  {
+    "name": "Laboratoires Griffon",
+    "category": "pharma",
+    "desc": "Formulations & Specialty Liquids",
+    "src": "assets/images/clients/client-laboratoires-griffon.png"
+  },
+  {
+    "name": "Lupin Limited",
+    "category": "pharma",
+    "desc": "Global Pharmaceutical Major (US FDA/cGMP)",
+    "src": "assets/images/clients/client-lupin.png"
+  },
+  {
+    "name": "Macleods Pharmaceuticals",
+    "category": "pharma",
+    "desc": "Global Top-Tier Formulations Leader",
+    "src": "assets/images/clients/client-macleods.png"
+  },
+  {
+    "name": "Manan Health Care Pvt Ltd",
+    "category": "pharma",
+    "desc": "Healthcare & Pharmaceutical Dosage",
+    "src": "assets/images/clients/client-manan-healthcare.png"
+  },
+  {
+    "name": "Mangalam Drugs & Organics",
+    "category": "pharma",
+    "desc": "Anti-Malarial & API Manufacturing",
+    "src": "assets/images/clients/client-mangalam-drugs.png"
+  },
+  {
+    "name": "National Technology Services",
+    "category": "pharma",
+    "desc": "Gland Packing & Sealing Solutions",
+    "src": "assets/images/clients/client-national-tech-services.png"
+  },
+  {
+    "name": "Naturex Natural Extracts",
+    "category": "pharma",
+    "desc": "Plant Extracts & Botanical Ingredients",
+    "src": "assets/images/clients/client-naturex.png"
+  },
+  {
+    "name": "Nitin Lifesciences Ltd",
+    "category": "pharma",
+    "desc": "Injectables & Sterile Manufacturing",
+    "src": "assets/images/clients/client-nitin-lifesciences.png"
+  },
+  {
+    "name": "NPCIL (Govt of India)",
+    "category": "pharma",
+    "desc": "Nuclear Power & High Reliability Components",
+    "src": "assets/images/clients/client-npcil.png"
+  },
+  {
+    "name": "Pall Corporation",
+    "category": "pharma",
+    "desc": "Filtration, Separation & Purification",
+    "src": "assets/images/clients/client-pall.png"
+  },
+  {
+    "name": "Parenteral Drugs India",
+    "category": "pharma",
+    "desc": "IV Fluids & Large Volume Parenterals",
+    "src": "assets/images/clients/client-parenteral-drugs.png"
+  },
+  {
+    "name": "Pioneer Asia Group",
+    "category": "pharma",
+    "desc": "Industrial Manufacturing & Formulations",
+    "src": "assets/images/clients/client-pioneer-asia.png"
+  },
+  {
+    "name": "Piramal Pharma Solutions",
+    "category": "pharma",
+    "desc": "Global CDMO & Pharmaceutical Leader",
+    "src": "assets/images/clients/client-piramal.png"
+  },
+  {
+    "name": "Pratiksha Filters Pvt Ltd",
+    "category": "pharma",
+    "desc": "Industrial & Pharma Filtration Systems",
+    "src": "assets/images/clients/client-pratiksha-filters.png"
+  },
+  {
+    "name": "Sarvani Food & Health",
+    "category": "pharma",
+    "desc": "Confectionery & Compression Formulations",
+    "src": "assets/images/clients/client-sarvani-sweets.png"
+  },
+  {
+    "name": "Sterling Biotech Limited",
+    "category": "pharma",
+    "desc": "Gelatin Capsules & Fermentation APIs",
+    "src": "assets/images/clients/client-sterling-biotech.png"
+  },
+  {
+    "name": "Trichem Laboratories",
+    "category": "pharma",
+    "desc": "Specialty Chemical & Drug Synthesis",
+    "src": "assets/images/clients/client-trichem.png"
+  },
+  {
+    "name": "Vedant Dyestuffs & Intermediates",
+    "category": "pharma",
+    "desc": "Intermediates & Chemical Synthesis",
+    "src": "assets/images/clients/client-vedant-dyestuffs.png"
+  },
+  {
+    "name": "Vidit Healthcare",
+    "category": "pharma",
+    "desc": "Healthcare & Formulations Manufacturing",
+    "src": "assets/images/clients/client-vidit-healthcare.png"
+  },
+  {
+    "name": "Vineengineer (Khandelwals)",
+    "category": "pharma",
+    "desc": "Precision Machining & Quality Spares",
+    "src": "assets/images/clients/client-vineengineer.png"
+  },
+  {
+    "name": "Bosch Packaging & Tooling",
+    "category": "oem",
+    "desc": "Invented for Life \u2022 Solid & Liquid Packaging",
+    "src": "assets/images/clients/logo-bosch.png"
+  },
+  {
+    "name": "Cadmach Machinery",
+    "category": "oem",
+    "desc": "Rotary Tablet Compression Machines",
+    "src": "assets/images/clients/logo-cadmach.png"
+  },
+  {
+    "name": "CCS Compression Systems",
+    "category": "oem",
+    "desc": "High Speed Compression Tooling",
+    "src": "assets/images/clients/logo-ccs.png"
+  },
+  {
+    "name": "Fette Compacting",
+    "category": "oem",
+    "desc": "Global Leader in Industrial Tablet Presses",
+    "src": "assets/images/clients/logo-fette-compacting.png"
+  },
+  {
+    "name": "GEA Courtoy",
+    "category": "oem",
+    "desc": "Courtoy Advanced Rotary Tablet Presses",
+    "src": "assets/images/clients/logo-gea-courtoy.png"
+  },
+  {
+    "name": "IMA Sustain Ability",
+    "category": "oem",
+    "desc": "Automated Processing & Packaging Machinery",
+    "src": "assets/images/clients/logo-ima.png"
+  },
+  {
+    "name": "Kilbeg (KBIS)",
+    "category": "oem",
+    "desc": "Pharmaceutical Processing & Tooling",
+    "src": "assets/images/clients/logo-kbis-kilbeg.png"
+  },
+  {
+    "name": "Korsch AG",
+    "category": "oem",
+    "desc": "Specialist in Tablet Press Technology",
+    "src": "assets/images/clients/logo-korsch.png"
+  },
+  {
+    "name": "PTK-GB Ltd",
+    "category": "oem",
+    "desc": "Encapsulation & Tablet Compression Systems",
+    "src": "assets/images/clients/logo-ptk-gb.png"
+  },
+  {
+    "name": "Romaco Group",
+    "category": "oem",
+    "desc": "Beyond Technology \u2022 Blister & Tablet Presses",
+    "src": "assets/images/clients/logo-romaco.png"
+  },
+  {
+    "name": "Sejong Pharmatech",
+    "category": "oem",
+    "desc": "Automatic Capsule Fillers & Presses",
+    "src": "assets/images/clients/logo-sejong.png"
+  }
+]
