@@ -1,7 +1,12 @@
 /**
  * ACE INTERNATIONAL - Client Portfolio & OEM Logo Cloud (#clients)
- * Interactive partner showcase with smooth batch swapping, category filtering
- * (Pharmaceutical End-Users & Machinery OEMs), dot indicators, and pause-on-hover auto-rotation.
+ * Aceternity UI Staggered Wave Swap Animation
+ * - Smooth wave transitions across grid cells with blur & slide
+ * - Hover tooltip with company/OEM name
+ * - Batch counter and wave progress dots
+ * - Category filter tabs (All / Pharma / OEM)
+ * - Auto-rotation with pause on hover/focus
+ * - Direct WhatsApp inquiry on cell click
  */
 
 import { CLIENT_LOGOS } from '../data/products.js';
@@ -43,127 +48,210 @@ export function initClientSwap() {
     const batch = [];
     for (let i = 0; i < visibleCount; i++) {
       const item = filteredLogos[(start + i) % filteredLogos.length];
-      batch.push(item);
+      if (item) batch.push(item);
     }
     return batch;
   }
 
-  function createLogoCardHTML(logo) {
-    const isOEM = logo.category === 'oem';
-    const badgeLabel = isOEM ? 'OEM Partner' : 'Pharmaceutical';
-    const badgeClass = isOEM ? 'oem-badge' : 'pharma-badge';
-
-    return `
-      <div class="logo-swap-card" tabindex="0" role="group" aria-label="${logo.name} - ${logo.desc}">
-        <div class="logo-swap-img-wrap">
-          <img src="${logo.src}" alt="${logo.name} Logo" class="logo-swap-img" loading="lazy">
-        </div>
-        <div class="logo-swap-info">
-          <span class="logo-swap-badge ${badgeClass}">${badgeLabel}</span>
-          <div class="logo-swap-name">${logo.name}</div>
-          <div class="logo-swap-desc">${logo.desc}</div>
-        </div>
-      </div>
-    `;
-  }
-
   function buildGrid() {
-    const logos = getBatchLogos(currentBatch);
-    logoCloudGrid.innerHTML = logos.map(createLogoCardHTML).join('');
+    if (!logoCloudGrid) return;
+    const visibleCount = getVisibleCount();
+    logoCloudGrid.innerHTML = '';
+    const currentItems = getBatchLogos(currentBatch);
+
+    for (let i = 0; i < visibleCount; i++) {
+      const item = currentItems[i];
+      if (!item) continue;
+
+      const cell = document.createElement('div');
+      cell.className = 'logo-swap-cell';
+      cell.setAttribute('data-cell-index', i);
+      cell.setAttribute('tabindex', '0');
+      cell.setAttribute('role', 'button');
+      cell.title = `${item.name} - ${item.desc}`;
+
+      const inner = document.createElement('div');
+      inner.className = 'logo-swap-item active';
+
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = `${item.name} logo`;
+      img.className = 'logo-swap-img';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+
+      const tooltip = document.createElement('span');
+      tooltip.className = 'logo-swap-tooltip';
+      tooltip.textContent = item.name;
+
+      inner.appendChild(img);
+      inner.appendChild(tooltip);
+      cell.appendChild(inner);
+
+      // On click or Enter key, open direct WhatsApp inquiry for this brand/OEM
+      const handleInquiry = () => {
+        const query = encodeURIComponent(`Parts & Tooling compatible with ${item.name}`);
+        window.open(`https://wa.me/919930051896?text=Hello%20ACE%20INTERNATIONAL,%20I%20would%20like%20to%20inquire%20about%20${query}.`, '_blank', 'noopener,noreferrer');
+      };
+
+      cell.addEventListener('click', handleInquiry);
+      cell.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleInquiry();
+        }
+      });
+
+      logoCloudGrid.appendChild(cell);
+    }
+
     updateControlsUI();
   }
 
   function updateControlsUI() {
     const totalBatches = getTotalBatches();
+    const visibleCount = getVisibleCount();
     const safeIdx = ((currentBatch % totalBatches) + totalBatches) % totalBatches;
 
+    // Update Counter with animated values
     if (logoCloudCounter) {
-      const currentStr = String(safeIdx + 1).padStart(2, '0');
-      const totalStr = String(totalBatches).padStart(2, '0');
-      logoCloudCounter.textContent = `${currentStr} / ${totalStr}`;
+      let batchNumEl = logoCloudCounter.querySelector('.batch-num');
+      let batchTotalEl = logoCloudCounter.querySelector('.batch-total');
+      let batchDetailEl = logoCloudCounter.querySelector('.batch-detail');
+
+      if (!batchNumEl) {
+        logoCloudCounter.innerHTML = `Batch <span class="batch-num">01</span> / <span class="batch-total">05</span> • <span class="batch-detail">Showing 10 of 48 Partners</span>`;
+        batchNumEl = logoCloudCounter.querySelector('.batch-num');
+        batchTotalEl = logoCloudCounter.querySelector('.batch-total');
+        batchDetailEl = logoCloudCounter.querySelector('.batch-detail');
+      }
+
+      if (batchNumEl) batchNumEl.textContent = String(safeIdx + 1).padStart(2, '0');
+      if (batchTotalEl) batchTotalEl.textContent = String(totalBatches).padStart(2, '0');
+      if (batchDetailEl) {
+        batchDetailEl.textContent = `Showing ${Math.min(visibleCount, filteredLogos.length)} of ${filteredLogos.length} Partners`;
+      }
     }
 
+    // Update Wave Progress Dots
     if (logoCloudDots) {
-      let dotsHTML = '';
-      for (let i = 0; i < totalBatches; i++) {
-        const isActive = i === safeIdx;
-        dotsHTML += `<button type="button" class="logo-swap-dot ${isActive ? 'active' : ''}" data-batch="${i}" aria-label="Go to partner page ${i + 1}" aria-selected="${isActive ? 'true' : 'false'}"></button>`;
-      }
-      logoCloudDots.innerHTML = dotsHTML;
-
-      logoCloudDots.querySelectorAll('.logo-swap-dot').forEach(dot => {
+      logoCloudDots.innerHTML = '';
+      for (let b = 0; b < totalBatches; b++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = `logo-cloud-dot ${b === safeIdx ? 'active' : ''}`;
+        dot.setAttribute('aria-label', `Go to batch ${b + 1}`);
         dot.addEventListener('click', () => {
-          const target = parseInt(dot.getAttribute('data-batch') || '0', 10);
-          if (target !== safeIdx && !isSwapping) {
-            swapToBatch(target, target > safeIdx ? 'next' : 'prev');
+          if (b !== safeIdx && !isSwapping) {
+            swapToBatch(b, b > safeIdx ? 'next' : 'prev');
           }
         });
-      });
+        logoCloudDots.appendChild(dot);
+      }
     }
   }
 
   function swapToBatch(targetBatch, direction = 'next') {
-    if (isSwapping) return;
+    if (isSwapping || !logoCloudGrid) return;
     isSwapping = true;
 
-    const cards = logoCloudGrid.querySelectorAll('.logo-swap-card');
-    cards.forEach((card, idx) => {
-      card.style.transition = `all 0.3s cubic-bezier(0.4, 0, 0.2, 1) ${idx * 20}ms`;
-      card.style.opacity = '0';
-      card.style.transform = direction === 'next' ? 'translateY(-14px) scale(0.96)' : 'translateY(14px) scale(0.96)';
+    const totalBatches = getTotalBatches();
+    currentBatch = ((targetBatch % totalBatches) + totalBatches) % totalBatches;
+    const nextItems = getBatchLogos(currentBatch);
+    const cells = logoCloudGrid.querySelectorAll('.logo-swap-cell');
+
+    const exitClass = direction === 'next' ? 'exit-left' : 'exit-right';
+    const enterClass = direction === 'next' ? 'enter-right' : 'enter-left';
+
+    // Staggered wave animation across cells (Aceternity UI signature stagger: 45ms per cell)
+    cells.forEach((cell, idx) => {
+      const inner = cell.querySelector('.logo-swap-item');
+      if (!inner) return;
+
+      const staggerDelay = idx * 45;
+
+      setTimeout(() => {
+        inner.classList.remove('active', 'enter-right', 'enter-left');
+        inner.classList.add(exitClass);
+
+        // Once exited, replace content and slide in from opposite side
+        setTimeout(() => {
+          const newItem = nextItems[idx];
+          if (newItem) {
+            const img = inner.querySelector('.logo-swap-img');
+            const tooltip = inner.querySelector('.logo-swap-tooltip');
+            if (img) {
+              img.src = newItem.src;
+              img.alt = `${newItem.name} logo`;
+            }
+            if (tooltip) {
+              tooltip.textContent = newItem.name;
+            }
+            cell.title = `${newItem.name} - ${newItem.desc}`;
+          }
+
+          inner.classList.remove(exitClass);
+          inner.classList.add(enterClass);
+
+          // Force reflow
+          void inner.offsetWidth;
+
+          // Transition to active
+          inner.classList.remove(enterClass);
+          inner.classList.add('active');
+
+          if (idx === cells.length - 1) {
+            setTimeout(() => {
+              isSwapping = false;
+            }, 300);
+          }
+        }, 220);
+      }, staggerDelay);
     });
 
-    setTimeout(() => {
-      currentBatch = targetBatch;
-      const nextLogos = getBatchLogos(currentBatch);
-      logoCloudGrid.innerHTML = nextLogos.map(createLogoCardHTML).join('');
-      updateControlsUI();
-
-      const newCards = logoCloudGrid.querySelectorAll('.logo-swap-card');
-      newCards.forEach((card, idx) => {
-        card.style.opacity = '0';
-        card.style.transform = direction === 'next' ? 'translateY(14px) scale(0.96)' : 'translateY(-14px) scale(0.96)';
-      });
-
-      requestAnimationFrame(() => {
-        newCards.forEach((card, idx) => {
-          card.style.transition = `all 0.35s cubic-bezier(0.16, 1, 0.3, 1) ${idx * 25}ms`;
-          card.style.opacity = '1';
-          card.style.transform = 'translateY(0) scale(1)';
-        });
-
-        setTimeout(() => {
-          isSwapping = false;
-        }, 400);
-      });
-    }, 320);
+    updateControlsUI();
   }
 
-  function nextBatch() {
-    const totalBatches = getTotalBatches();
-    swapToBatch((currentBatch + 1) % totalBatches, 'next');
+  function startAutoSwap() {
+    stopAutoSwap();
+    autoSwapTimer = setInterval(() => {
+      if (!isHovered && !isSwapping) {
+        swapToBatch(currentBatch + 1, 'next');
+      }
+    }, 3800);
   }
 
-  function prevBatch() {
-    const totalBatches = getTotalBatches();
-    swapToBatch((currentBatch - 1 + totalBatches) % totalBatches, 'prev');
+  function stopAutoSwap() {
+    if (autoSwapTimer) {
+      clearInterval(autoSwapTimer);
+      autoSwapTimer = null;
+    }
+  }
+
+  // Hover and focus pause listeners
+  if (logoCloudWrapper) {
+    logoCloudWrapper.addEventListener('mouseenter', () => { isHovered = true; });
+    logoCloudWrapper.addEventListener('mouseleave', () => { isHovered = false; });
+    logoCloudWrapper.addEventListener('focusin', () => { isHovered = true; });
+    logoCloudWrapper.addEventListener('focusout', () => { isHovered = false; });
+  }
+
+  // Navigation Arrows
+  if (logoSwapPrev) {
+    logoSwapPrev.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!isSwapping) swapToBatch(currentBatch - 1, 'prev');
+    });
   }
 
   if (logoSwapNext) {
     logoSwapNext.addEventListener('click', (e) => {
       e.preventDefault();
-      nextBatch();
+      if (!isSwapping) swapToBatch(currentBatch + 1, 'next');
     });
   }
 
-  if (logoSwapPrev) {
-    logoSwapPrev.addEventListener('click', (e) => {
-      e.preventDefault();
-      prevBatch();
-    });
-  }
-
-  // Category filtering
+  // Filter Buttons (All / Pharma / OEM)
   logoFilterBtns.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -177,10 +265,12 @@ export function initClientSwap() {
         b.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
       });
 
-      if (filter === 'all') {
-        filteredLogos = [...CLIENT_LOGOS];
+      if (filter === 'pharma') {
+        filteredLogos = CLIENT_LOGOS.filter(l => l.category === 'pharma');
+      } else if (filter === 'oem') {
+        filteredLogos = CLIENT_LOGOS.filter(l => l.category === 'oem');
       } else {
-        filteredLogos = CLIENT_LOGOS.filter(item => item.category === filter);
+        filteredLogos = [...CLIENT_LOGOS];
       }
 
       currentBatch = 0;
@@ -188,35 +278,11 @@ export function initClientSwap() {
     });
   });
 
-  // Auto-swapping rotation
-  function startAutoSwap() {
-    stopAutoSwap();
-    autoSwapTimer = setInterval(() => {
-      if (!isHovered && !isSwapping) {
-        nextBatch();
-      }
-    }, 4500);
-  }
-
-  function stopAutoSwap() {
-    if (autoSwapTimer) {
-      clearInterval(autoSwapTimer);
-      autoSwapTimer = null;
-    }
-  }
-
-  if (logoCloudWrapper) {
-    logoCloudWrapper.addEventListener('mouseenter', () => { isHovered = true; });
-    logoCloudWrapper.addEventListener('mouseleave', () => { isHovered = false; });
-    logoCloudWrapper.addEventListener('focusin', () => { isHovered = true; });
-    logoCloudWrapper.addEventListener('focusout', () => { isHovered = false; });
-  }
-
-  // Window resize handler
-  let resizeTimer = null;
+  // Responsive re-grid on resize
+  let logoResizeDebounce = null;
   window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
+    clearTimeout(logoResizeDebounce);
+    logoResizeDebounce = setTimeout(() => {
       buildGrid();
     }, 150);
   });

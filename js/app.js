@@ -9,12 +9,12 @@
  * - Technical Brochure Generation
  */
 
-import { initNavigation } from './modules/navigation.js';
-import { initCategoryCarousel } from './modules/carousel.js';
-import { initCoverageSection } from './modules/coverage.js';
-import { initClientSwap } from './modules/client-swap.js';
-import { initModalSystem } from './modules/modal.js';
-import { initBrochureDownload } from './modules/brochure.js';
+import { initNavigation } from './modules/navigation.js?v=prod_v3';
+import { initCategoryCarousel } from './modules/carousel.js?v=prod_v3';
+import { initCoverageSection } from './modules/coverage.js?v=prod_v3';
+import { initClientSwap } from './modules/client-swap.js?v=prod_v3';
+import { initModalSystem } from './modules/modal.js?v=prod_v3';
+import { initBrochureDownload } from './modules/brochure.js?v=prod_v3';
 
 export function initApp() {
   try {
