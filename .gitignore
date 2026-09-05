@@ -1,13 +1,25 @@
-# Byte-compiled / optimized / DLL files
+# Node / Dependencies
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# Production Build Output
+dist/
+build/
+.cache/
+
+# Byte-compiled / Python
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
-# Temporary scripts
-check_last.py
-
-# OS / Editor files
+# Local Environment & Editor
+.env
+.env.local
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
+*.swp
+*.bak
