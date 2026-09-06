@@ -14,16 +14,13 @@ import { CLIENT_LOGOS } from '../data/products.js';
 export function initClientSwap() {
   const logoCloudGrid = document.getElementById('logoCloudGrid');
   const logoCloudWrapper = document.getElementById('logoCloudWrapper');
-  const logoCloudCounter = document.getElementById('logoCloudCounter');
   const logoCloudDots = document.getElementById('logoCloudDots');
   const logoSwapPrev = document.getElementById('logoSwapPrev');
   const logoSwapNext = document.getElementById('logoSwapNext');
-  const logoFilterBtns = document.querySelectorAll('.logo-filter-btn');
 
   if (!logoCloudGrid) return;
 
-  let activeFilter = 'all';
-  let filteredLogos = [...CLIENT_LOGOS];
+  const logos = [...CLIENT_LOGOS];
   let currentBatch = 0;
   let autoSwapTimer = null;
   let isSwapping = false;
@@ -37,7 +34,7 @@ export function initClientSwap() {
 
   function getTotalBatches() {
     const visibleCount = getVisibleCount();
-    return Math.ceil(filteredLogos.length / visibleCount) || 1;
+    return Math.ceil(logos.length / visibleCount) || 1;
   }
 
   function getBatchLogos(batchIdx) {
@@ -47,7 +44,7 @@ export function initClientSwap() {
     const start = safeIdx * visibleCount;
     const batch = [];
     for (let i = 0; i < visibleCount; i++) {
-      const item = filteredLogos[(start + i) % filteredLogos.length];
+      const item = logos[(start + i) % logos.length];
       if (item) batch.push(item);
     }
     return batch;
@@ -94,28 +91,7 @@ export function initClientSwap() {
 
   function updateControlsUI() {
     const totalBatches = getTotalBatches();
-    const visibleCount = getVisibleCount();
     const safeIdx = ((currentBatch % totalBatches) + totalBatches) % totalBatches;
-
-    // Update Counter with animated values
-    if (logoCloudCounter) {
-      let batchNumEl = logoCloudCounter.querySelector('.batch-num');
-      let batchTotalEl = logoCloudCounter.querySelector('.batch-total');
-      let batchDetailEl = logoCloudCounter.querySelector('.batch-detail');
-
-      if (!batchNumEl) {
-        logoCloudCounter.innerHTML = `Batch <span class="batch-num">01</span> / <span class="batch-total">05</span> • <span class="batch-detail">Showing 10 of 48 Partners</span>`;
-        batchNumEl = logoCloudCounter.querySelector('.batch-num');
-        batchTotalEl = logoCloudCounter.querySelector('.batch-total');
-        batchDetailEl = logoCloudCounter.querySelector('.batch-detail');
-      }
-
-      if (batchNumEl) batchNumEl.textContent = String(safeIdx + 1).padStart(2, '0');
-      if (batchTotalEl) batchTotalEl.textContent = String(totalBatches).padStart(2, '0');
-      if (batchDetailEl) {
-        batchDetailEl.textContent = `Showing ${Math.min(visibleCount, filteredLogos.length)} of ${filteredLogos.length} Partners`;
-      }
-    }
 
     // Update Wave Progress Dots
     if (logoCloudDots) {
@@ -235,32 +211,7 @@ export function initClientSwap() {
     });
   }
 
-  // Filter Buttons (All / Pharma / OEM)
-  logoFilterBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const filter = btn.getAttribute('data-filter') || 'all';
-      if (filter === activeFilter) return;
 
-      activeFilter = filter;
-      logoFilterBtns.forEach(b => {
-        const isCurrent = b === btn;
-        b.classList.toggle('active', isCurrent);
-        b.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
-      });
-
-      if (filter === 'pharma') {
-        filteredLogos = CLIENT_LOGOS.filter(l => l.category === 'pharma');
-      } else if (filter === 'oem') {
-        filteredLogos = CLIENT_LOGOS.filter(l => l.category === 'oem');
-      } else {
-        filteredLogos = [...CLIENT_LOGOS];
-      }
-
-      currentBatch = 0;
-      buildGrid();
-    });
-  });
 
   // Responsive re-grid on resize
   let logoResizeDebounce = null;
